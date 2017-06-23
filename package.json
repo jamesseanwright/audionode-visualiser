@@ -1,0 +1,26 @@
+{
+  "name": "audionode-visualiser",
+  "version": "0.0.1",
+  "description": "A D3.js-powered library for generating tree visualisations of Web Audio API node graphs",
+  "main": "src/index.js",
+  "dependencies": {
+    "d3": "^4.9.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "mocha"
+  },
+  "keywords": [
+    "web",
+    "audio",
+    "api",
+    "audionode",
+    "graph",
+    "d3",
+    "visualiser",
+    "visualizer",
+    "tree"
+  ],
+  "author": "James Wright <james@jamesswright.co.uk>",
+  "license": "ISC"
+}
