@@ -1,7 +1,10 @@
 'use strict';
 
+const graphState = require('./graphState');
+
 function createGraphableConnect(audioNode) {
 	return function graphableConnect(targetNode) {
+        graphState.add(audioNode, targetNode);
 		audioNode.connect(targetNode);
     };
 }

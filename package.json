@@ -6,7 +6,11 @@
   "dependencies": {
     "d3": "4.9.1"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "chai": "4.0.2",
+    "mocha": "3.4.2",
+    "sinon": "2.3.5"
+  },
   "scripts": {
     "test": "mocha"
   },
