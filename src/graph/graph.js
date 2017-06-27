@@ -1,5 +1,7 @@
 'use strict';
 
+const Node = require('./node');
+
 class Graph {
 
 }
