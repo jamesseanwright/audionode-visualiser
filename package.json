@@ -14,7 +14,7 @@
   },
   "scripts": {
     "pretest": "eslint src test",
-    "test": "mocha"
+    "test": "mocha src/**/tests/*Tests.js"
   },
   "keywords": [
     "web",

@@ -2,8 +2,8 @@
 
 const sinon = require('sinon');
 const { expect } = require('chai');
-const graphState = require('../src/graphState');
-const createGraphableNode = require('../src/createGraphableNode');
+const graphState = require('../graph/graphState');
+const createGraphableNode = require('../createGraphableNode');
 
 describe('the createGraphableNode function', function () {
     let mockGraphState;
