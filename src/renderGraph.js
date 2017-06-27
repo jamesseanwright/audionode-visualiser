@@ -1,6 +1,6 @@
 'use strict';
 
-function renderGraph(targetElement) {
+function renderGraph(/* targetElement */) {
 
 }
 

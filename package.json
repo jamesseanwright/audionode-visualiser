@@ -8,10 +8,12 @@
   },
   "devDependencies": {
     "chai": "4.0.2",
+    "eslint": "4.1.1",
     "mocha": "3.4.2",
     "sinon": "2.3.5"
   },
   "scripts": {
+    "pretest": "eslint src test",
     "test": "mocha"
   },
   "keywords": [
