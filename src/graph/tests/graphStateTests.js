@@ -31,5 +31,25 @@ describe('the GraphState class', function () {
             expect(assertNodeEquality(targetNode, targetValue)).to.be.true;
             expect(sourceNode.children[0]).to.equal(targetNode);
         });
+
+        it('should add the target as a child of an existing source node that matches the source value', function () {
+            const sourceValue = 3;
+            const firstTargetValue = 6;
+            const secondTargetValue = 8;
+
+            graphState.add(sourceValue, firstTargetValue);
+            graphState.add(sourceValue, secondTargetValue);
+
+            const sourceNode = graph.findNodeByValue(sourceValue);
+            const firstTargetNode = graph.findNodeByValue(firstTargetValue);
+            const secondTargetNode = graph.findNodeByValue(secondTargetValue);
+
+            expect(assertNodeEquality(sourceNode, sourceValue)).to.be.true;
+            expect(assertNodeEquality(firstTargetNode, firstTargetValue)).to.be.true;
+            expect(assertNodeEquality(secondTargetNode, secondTargetValue)).to.be.true;
+            expect(sourceNode.children.length).to.equal(2);
+            expect(sourceNode.children[0]).to.equal(firstTargetNode);
+            expect(sourceNode.children[1]).to.equal(secondTargetNode);
+        });
     });
 });

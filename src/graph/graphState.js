@@ -9,11 +9,16 @@ class GraphState {
     }
 
     add(sourceValue, targetValue) {
-        const sourceNode = new Node(sourceValue);
         const targetNode = new Node(targetValue);
+        const existingSourceNode = this._graph.findNodeByValue(sourceValue);
 
-        sourceNode.add(targetNode);
-        this._graph.add(sourceNode);
+        if (existingSourceNode) {
+            existingSourceNode.add(targetNode);
+        } else {
+            const sourceNode = new Node(sourceValue);
+            sourceNode.add(targetNode);
+            this._graph.add(sourceNode);
+        }
     }
 }
 
