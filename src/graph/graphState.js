@@ -1,5 +1,8 @@
 'use strict';
 
-module.exports = {
+class GraphState {
     add() {}
-};
+}
+
+module.exports = new GraphState();
+module.exports.GraphState = GraphState;
