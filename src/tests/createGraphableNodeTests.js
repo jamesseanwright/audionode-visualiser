@@ -2,21 +2,21 @@
 
 const sinon = require('sinon');
 const { expect } = require('chai');
-const graphState = require('../graph/graphState');
+const graph = require('../graph/graph');
 const createGraphableNode = require('../createGraphableNode');
 
 describe('the createGraphableNode function', function () {
-    let mockGraphState;
+    let mockGraph;
 
     beforeEach(function () {
-        mockGraphState = sinon.mock(graphState);
+        mockGraph = sinon.mock(graph);
     });
 
     afterEach(function () {
-        mockGraphState.restore();
+        mockGraph.restore();
     });
 
-    it('should proxy an AudioNode`s connect method and add it, with the target node, to the graph state', function () {
+    it('should proxy an AudioNode`s connect method and add it, with the target node, to the graph', function () {
         const sourceNode = {
             connect: sinon.spy()
         };
@@ -24,13 +24,13 @@ describe('the createGraphableNode function', function () {
         const graphableNode = createGraphableNode(sourceNode);
         const targetNode = {};
 
-        mockGraphState.expects('add')
+        mockGraph.expects('add')
             .once()
             .withArgs(sourceNode, targetNode);
 
         graphableNode.connect(targetNode);
 
-        mockGraphState.verify();
+        mockGraph.verify();
         expect(sourceNode.connect.calledOnce).to.be.true;
         expect(sourceNode.connect.calledWith(targetNode)).to.be.true;
     });

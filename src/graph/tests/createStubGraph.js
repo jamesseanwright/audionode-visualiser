@@ -1,6 +1,6 @@
 'use strict';
 
-const Graph = require('../graph');
+const { Graph } = require('../graph');
 const Node = require('../node');
 
 function createStubGraph() {
