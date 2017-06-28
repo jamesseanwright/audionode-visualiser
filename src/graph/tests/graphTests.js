@@ -52,6 +52,7 @@ describe('the Graph class', function () {
         });
     });
 
+    // An implementation detail, but testing due to complexity
     describe('the _findNodeByValue method', function () {
         const { graph, secondGenLeftNodes } = createStubGraph();
 
