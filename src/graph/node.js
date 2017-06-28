@@ -14,6 +14,10 @@ class Node {
         return this._value === value;
     }
 
+    toString() {
+        return this._value.constructor.name;
+    }
+
     get children() {
         return [].concat(this._children);
     }

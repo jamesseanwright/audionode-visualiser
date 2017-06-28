@@ -10,7 +10,7 @@ function createStubGraph() {
         }
     }
 
-    const graph = new Graph();
+    const graph = new Graph('root value');
 
     const firstGenNodes = [
         new Node(1),

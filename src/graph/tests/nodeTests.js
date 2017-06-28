@@ -32,4 +32,14 @@ describe('the Node class', function () {
             expect(containsValue).to.be.false;
         });
     });
+
+    describe('the toString method', function () {
+        it('should return the name of the value`s constructor', function () {
+            const node = new Node('wibble');
+            const expectedResult = 'String';
+            const actualResult = node.toString();
+
+            expect(actualResult).to.equal(expectedResult);
+        });
+    });
 });

@@ -3,8 +3,8 @@
 const Node = require('./node');
 
 class Graph extends Node {
-    constructor() {
-        super(null);
+    constructor(rootValue) {
+        super(rootValue);
     }
 
     findNodeByValue(value, node = this) {
