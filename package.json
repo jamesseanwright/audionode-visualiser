@@ -4,15 +4,18 @@
   "description": "A D3.js-powered library for generating tree visualisations of Web Audio API node graphs",
   "main": "src/index.js",
   "dependencies": {
-    "d3-hierarchy": "1.1.5"
+    "d3-hierarchy": "1.1.5",
+    "d3-selection": "1.1.0"
   },
   "devDependencies": {
+    "browserify": "14.4.0",
     "chai": "4.0.2",
     "eslint": "4.1.1",
     "mocha": "3.4.2",
     "sinon": "2.3.5"
   },
   "scripts": {
+    "build-example": "./tasks/build-example.bash",
     "pretest": "eslint src test",
     "test": "mocha src/{,**/}tests/*Tests.js"
   },

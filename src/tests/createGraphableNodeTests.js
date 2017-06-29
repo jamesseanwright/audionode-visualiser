@@ -35,7 +35,32 @@ describe('the createGraphableNode function', function () {
         expect(sourceNode.connect.calledWith(targetNode)).to.be.true;
     });
 
-    it('should transparently forward any property other than `connect`', function () {
+    it('should use the target node`s target property if it`s a Proxy', function () {
+        const sourceNode = {
+            connect: sinon.spy()
+        };
+
+        const targetNode = {
+            connect() {}
+        };
+
+        const graphableSourceNode = createGraphableNode(sourceNode);
+        const graphableTargetNode = createGraphableNode(targetNode);
+
+        graphableSourceNode.connect(graphableTargetNode);
+
+        expect(sourceNode.connect.calledOnce).to.be.true;
+        expect(sourceNode.connect.calledWith(targetNode)).to.be.true;
+    });
+
+    it('should return the underlying AudioNode when the `target` property is requested', function () {
+        const sourceNode = {};
+        const graphableNode = createGraphableNode(sourceNode);
+
+        expect(graphableNode.target).to.equal(sourceNode);
+    });
+
+    it('should transparently forward any other property', function () {
         const sourceNode = {
             foo: 'bar'
         };
@@ -44,4 +69,5 @@ describe('the createGraphableNode function', function () {
 
         expect(graphableNode.foo).to.equal('bar');
     });
+
 });
