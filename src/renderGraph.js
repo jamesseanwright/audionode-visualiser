@@ -27,7 +27,7 @@ function renderNodes(nodes, group) {
         .enter()
         .append('g')
         .attr('class', 'node')
-        .attr('transform', d => `translate(${d.y},${d.x}))`);
+        .attr('transform', d => `translate(${d.y},${d.x})`);
 
     renderedNodes.append('circle')
         .attr('r', 10);
