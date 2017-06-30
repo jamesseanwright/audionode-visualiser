@@ -5,7 +5,7 @@ function adaptToD3Hierarchy(node) {
         name: node.toString()
     };
 
-    if (node.children.length) {
+    if (node.children) {
         d3Node.children = node.children.map(adaptToD3Hierarchy);
     }
 
