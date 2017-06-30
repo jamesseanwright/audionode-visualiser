@@ -17,6 +17,7 @@ function renderLinks(nodes, group) {
         .data(nodes)
         .enter()
         .append('path')
+        .attr('class', 'link')
         .attr('d', computePathDescription);
 }
 
@@ -25,6 +26,7 @@ function renderNodes(nodes, group) {
         .data(nodes)
         .enter()
         .append('g')
+        .attr('class', 'node')
         .attr('transform', d => `translate(${d.y},${d.x}))`);
 
     renderedNodes.append('circle')
