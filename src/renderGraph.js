@@ -5,11 +5,13 @@ const d3Selection = require('d3-selection');
 const graph = require('./graph/graph');
 const adaptToD3Hierarchy = require('./graph/adaptToD3Hierarchy');
 
-function createSvg(targetElementSelector) {
+const MARGIN = 50;
+
+function createSvg(targetElementSelector, width, height) {
     return d3Selection.select(targetElementSelector)
         .append('svg')
-        .attr('width', innerWidth)
-        .attr('height', innerHeight);
+        .attr('width', width)
+        .attr('height', height);
 }
 
 function renderLinks(nodes, group) {
@@ -31,6 +33,9 @@ function renderNodes(nodes, group) {
 
     renderedNodes.append('circle')
         .attr('r', 10);
+
+    renderedNodes.append('text')
+        .text(d => d.data.name);
 }
 
 function computePathDescription(d) {
@@ -42,10 +47,11 @@ function computePathDescription(d) {
 }
 
 function renderGraph(targetElementSelector) {
-    const { innerWidth, innerHeight } = window;
+    const width = window.innerWidth - MARGIN;
+    const height = window.innerHeight - MARGIN;
     const hierarchy = d3Hierarchy.hierarchy(adaptToD3Hierarchy(graph));
-    const tree = d3Hierarchy.tree().size([innerWidth, innerHeight]);
-    const svg = createSvg(targetElementSelector);
+    const tree = d3Hierarchy.tree().size([height, width]);
+    const svg = createSvg(targetElementSelector, width, height);
     const group = svg.append('g');
     const nodes = tree(hierarchy);
     const descendants = nodes.descendants();
