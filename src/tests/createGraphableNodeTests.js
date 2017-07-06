@@ -24,7 +24,7 @@ describe('the createGraphableNode function', function () {
         const graphableNode = createGraphableNode(sourceNode);
         const targetNode = {};
 
-        mockGraph.expects('add')
+        mockGraph.expects('addValue')
             .once()
             .withArgs(sourceNode, targetNode);
 

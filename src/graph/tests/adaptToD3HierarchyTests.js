@@ -14,18 +14,18 @@ describe('the adaptToD3Hierarchy function', function () {
                 {
                     name: 'Number',
                     children: [
-                        { name: 'Number' },
-                        { name: 'Number' },
-                        { name: 'Number' },
+                        { name: 'Number', children: [] },
+                        { name: 'Number', children: [] },
+                        { name: 'Number', children: [] },
                     ]
                 },
 
                 {
                     name: 'Number',
                     children: [
-                        { name: 'Number' },
-                        { name: 'Number' },
-                        { name: 'Number' },
+                        { name: 'Number', children: [] },
+                        { name: 'Number', children: [] },
+                        { name: 'Number', children: [] },
                     ]
                 }
             ]

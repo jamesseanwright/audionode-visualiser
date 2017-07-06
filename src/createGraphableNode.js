@@ -5,7 +5,7 @@ const graph = require('./graph/graph');
 function createGraphableConnect(audioNode) {
     return function graphableConnect(targetNode) {
         const { target = targetNode } = targetNode;
-        graph.add(audioNode, targetNode);
+        graph.addValue(audioNode, target);
         audioNode.connect(target);
     };
 }
