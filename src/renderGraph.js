@@ -29,7 +29,7 @@ function renderNodes(nodes, group) {
         .enter()
         .append('g')
         .attr('class', 'node')
-        .attr('transform', d => `translate(${d.y},${d.x})`);
+        .attr('transform', d => `translate(${d.x},${d.y})`);
 
     renderedNodes.append('circle')
         .attr('r', 10);
@@ -43,14 +43,14 @@ function computePathDescription(d) {
     const yOffset = d.parent ? d.parent.y : 0;
     const curveYPos = (d.y + yOffset) / 2;
 
-    return `M${d.y},${d.x}C${curveYPos},${d.x} ${curveYPos},${xOffset} ${yOffset},${xOffset}`;
+    return `M${d.x},${d.y}C${d.x},${curveYPos} ${xOffset},${curveYPos} ${xOffset},${yOffset}`;
 }
 
 function renderGraph(targetElementSelector) {
     const width = window.innerWidth - MARGIN;
     const height = window.innerHeight - MARGIN;
     const hierarchy = d3Hierarchy.hierarchy(adaptToD3Hierarchy(graph));
-    const tree = d3Hierarchy.tree().size([height, width]);
+    const tree = d3Hierarchy.tree().size([width, height]);
     const svg = createSvg(targetElementSelector, width, height);
     const group = svg.append('g');
     const nodes = tree(hierarchy);

@@ -8,8 +8,9 @@ class Graph extends Node {
     }
 
     addValue(sourceValue, targetValue) {
-        const targetNode = new Node(targetValue);
         const existingSourceNode = this._findNodeByValue(sourceValue);
+        const existingTargetNode = this._findNodeByValue(targetValue);
+        const targetNode = existingTargetNode || new Node(targetValue);
 
         if (existingSourceNode) {
             existingSourceNode.add(targetNode);

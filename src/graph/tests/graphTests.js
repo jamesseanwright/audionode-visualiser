@@ -50,6 +50,22 @@ describe('the Graph class', function () {
             expect(sourceNode.children[0]).to.equal(firstTargetNode);
             expect(sourceNode.children[1]).to.equal(secondTargetNode);
         });
+
+        it('should add an existing target as a child of multiple sources if target is already in the graph', function () {
+            const firstSourceValue = 3;
+            const secondSourceValue = 4;
+            const targetValue = 6;
+
+            graph.addValue(firstSourceValue, targetValue);
+            graph.addValue(secondSourceValue, targetValue);
+
+            const firstSourceNode = graph._findNodeByValue(firstSourceValue);
+            const secondSourceNode = graph._findNodeByValue(secondSourceValue);
+            const targetNode = graph._findNodeByValue(targetValue);
+
+            expect(firstSourceNode.children[0]).to.equal(targetNode);
+            expect(secondSourceNode.children[0]).to.equal(targetNode);
+        });
     });
 
     // An implementation detail, but testing due to complexity
