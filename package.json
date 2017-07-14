@@ -4,7 +4,7 @@
   "description": "A D3.js-powered library for generating tree visualisations of Web Audio API node graphs",
   "main": "src/index.js",
   "dependencies": {
-    "d3-hierarchy": "1.1.5",
+    "d3-force": "1.0.6",
     "d3-selection": "1.1.0"
   },
   "devDependencies": {

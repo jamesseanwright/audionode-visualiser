@@ -2,13 +2,13 @@
 
 const { expect } = require('chai');
 const createStubGraph = require('./createStubGraph');
-const adaptToD3Hierarchy = require('../adaptToD3Hierarchy');
+const adaptToD3GraphData = require('../adaptToD3GraphData');
 
-describe('the adaptToD3Hierarchy function', function () {
-    it('should adapt a Graph instance into a D3 hierarchical layout, using constructor names', function () {
+describe('the adaptToD3GraphData function', function () {
+    it('should adapt a Graph instance into a D3 graph layout', function () {
         const { graph } = createStubGraph();
 
-        const expectedHierarchy = {
+        const expectedData = {
             name: 'String',
             children: [
                 {
@@ -31,7 +31,7 @@ describe('the adaptToD3Hierarchy function', function () {
             ]
         };
 
-        const actualHierarchy = adaptToD3Hierarchy(graph);
-        expect(actualHierarchy).to.deep.equal(expectedHierarchy);
+        const actualData = adaptToD3GraphData(graph);
+        expect(actualData).to.deep.equal(expectedData);
     });
 });
