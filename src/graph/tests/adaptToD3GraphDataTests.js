@@ -23,17 +23,17 @@ describe('the adaptToD3GraphData function', function () {
 
             links: [
                 { source: 0, target: 1 },
-                { source: 0, target: 2 },
+                { source: 1, target: 2 },
                 { source: 1, target: 3 },
                 { source: 1, target: 4 },
-                { source: 1, target: 5 },
-                { source: 2, target: 6 },
-                { source: 2, target: 7 },
-                { source: 2, target: 8 },
+                { source: 0, target: 5 },
+                { source: 5, target: 6 },
+                { source: 5, target: 7 },
+                { source: 5, target: 8 },
             ]
         };
 
-        const actualData = adaptToD3GraphData(graph);
+        const actualData = adaptToD3GraphData([graph]);
         expect(actualData).to.deep.equal(expectedData);
     });
 });
