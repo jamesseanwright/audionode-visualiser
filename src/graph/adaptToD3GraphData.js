@@ -24,7 +24,10 @@ function adaptToD3GraphData(nodes, graphData = initialData, parentIndex = 0) {
         const childIndex = graphData.nodes.length;
 
         graphData.nodes = graphData.nodes.concat(mapNode(node));
-        graphData.links = graphData.links.concat(createLink(parentIndex, childIndex));
+
+        if (childIndex > 0) {
+            graphData.links = graphData.links.concat(createLink(parentIndex, childIndex));
+        }
 
         if (node.children.length) {
             adaptToD3GraphData(node.children, graphData, childIndex);
