@@ -1,11 +1,9 @@
 'use strict';
 
-const d3Hierarchy = require('d3-hierarchy');
+const d3Force = require('d3-force');
 const d3Selection = require('d3-selection');
 const graph = require('./graph/graph');
-const adaptToD3Hierarchy = require('./graph/adaptToD3Hierarchy');
-
-const MARGIN = 50;
+const adaptToD3GraphData = require('./graph/adaptToD3GraphData');
 
 function createSvg(targetElementSelector, width, height) {
     return d3Selection.select(targetElementSelector)
@@ -14,50 +12,51 @@ function createSvg(targetElementSelector, width, height) {
         .attr('height', height);
 }
 
-function renderLinks(nodes, group) {
-    group.selectAll('.link')
-        .data(nodes)
-        .enter()
-        .append('path')
-        .attr('class', 'link')
-        .attr('d', computePathDescription);
-}
-
-function renderNodes(nodes, group) {
-    const renderedNodes = group.selectAll('.node')
-        .data(nodes)
-        .enter()
-        .append('g')
+function renderNodes(svg, nodes) {
+    return svg.append('g')
         .attr('class', 'node')
-        .attr('transform', d => `translate(${d.x},${d.y})`);
-
-    renderedNodes.append('circle')
-        .attr('r', 10);
-
-    renderedNodes.append('text')
-        .text(d => d.data.name);
+        .selectAll('circle')
+        .data(nodes)
+        .enter()
+        .append('circle')
+        .attr('r', n => n.r);
 }
 
-function computePathDescription(d) {
-    const xOffset = d.parent ? d.parent.x : 0;
-    const yOffset = d.parent ? d.parent.y : 0;
-    const curveYPos = (d.y + yOffset) / 2;
+function renderLinks(svg, links) {
+    return svg.append('g')
+        .attr('class', 'link')
+        .selectAll('line')
+        .data(links)
+        .enter()
+        .append('line');
+}
 
-    return `M${d.x},${d.y}C${d.x},${curveYPos} ${xOffset},${curveYPos} ${xOffset},${yOffset}`;
+function tick(renderedNodes, renderedLinks) {
+    renderedNodes.attr('cx', n => n.x)
+        .attr('cy', n => n.y);
+
+    renderedLinks.attr('x1', d => d.source.x);
+    renderedLinks.attr('y1', d => d.source.y);
+    renderedLinks.attr('x2', d => d.target.x);
+    renderedLinks.attr('y2', d => d.target.y);
 }
 
 function renderGraph(targetElementSelector) {
-    const width = window.innerWidth - MARGIN;
-    const height = window.innerHeight - MARGIN;
-    const hierarchy = d3Hierarchy.hierarchy(adaptToD3Hierarchy(graph));
-    const tree = d3Hierarchy.tree().size([width, height]);
+    const width = window.innerWidth;
+    const height = window.innerHeight;
     const svg = createSvg(targetElementSelector, width, height);
-    const group = svg.append('g');
-    const nodes = tree(hierarchy);
-    const descendants = nodes.descendants();
+    const { nodes, links } = adaptToD3GraphData([graph]);
+    console.log(JSON.stringify(nodes), JSON.stringify(links));
+    const simulation = d3Force.forceSimulation(nodes);
 
-    renderLinks(descendants, group);
-    renderNodes(descendants, group);
+    const renderedNodes = renderNodes(svg, nodes);
+    const renderedLinks = renderLinks(svg, links);
+
+    simulation.force('link', d3Force.forceLink(links));
+    simulation.force('center', d3Force.forceCenter(width / 2, height / 2));
+    simulation.force('x', d3Force.forceX(0));
+    simulation.force('y', d3Force.forceY(0));
+    simulation.on('tick', () => tick(renderedNodes, renderedLinks));
 }
 
 module.exports = renderGraph;
