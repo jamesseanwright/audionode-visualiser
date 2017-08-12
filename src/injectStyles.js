@@ -20,6 +20,7 @@ const styles = `
 
     .text {
         stroke: black;
+        font-family: Arial;
     }
 `;
 

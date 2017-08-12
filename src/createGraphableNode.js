@@ -15,7 +15,7 @@ function createGraphableNode(audioNode) {
         get(node, prop) {
             switch (prop) {
             case 'connect':
-                return createGraphableConnect(node);
+                return createGraphableConnect(node); // TODO: create once when parent function called
 
             case 'target':
                 return node;

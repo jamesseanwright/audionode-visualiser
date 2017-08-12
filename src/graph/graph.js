@@ -38,5 +38,5 @@ class Graph extends Node {
     }
 }
 
-module.exports = new Graph('foo');
+module.exports = new Graph(new AudioContext());
 module.exports.Graph = Graph;
