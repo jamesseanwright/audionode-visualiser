@@ -4,6 +4,7 @@ const d3Force = require('d3-force');
 const d3Selection = require('d3-selection');
 const graph = require('./graph/graph');
 const adaptToD3GraphData = require('./graph/adaptToD3GraphData');
+const injectStyles = require('./injectStyles');
 
 function createSvg(targetElementSelector, width, height) {
     return d3Selection.select(targetElementSelector)
@@ -18,8 +19,17 @@ function renderNodes(svg, nodes) {
         .selectAll('circle')
         .data(nodes)
         .enter()
-        .append('circle')
-        .attr('r', n => n.r);
+        .append('circle');
+}
+
+function renderText(svg, nodes) {
+    return svg.append('g')
+        .attr('class', 'text')
+        .selectAll('text')
+        .data(nodes)
+        .enter()
+        .append('text')
+        .text('foo');
 }
 
 function renderLinks(svg, links) {
@@ -31,8 +41,11 @@ function renderLinks(svg, links) {
         .append('line');
 }
 
-function tick(renderedNodes, renderedLinks) {
+function tick(renderedNodes, renderedText, renderedLinks) {
     renderedNodes.attr('cx', n => n.x)
+        .attr('cy', n => n.y);
+
+    renderedText.attr('cx', n => n.x)
         .attr('cy', n => n.y);
 
     renderedLinks.attr('x1', d => d.source.x);
@@ -42,21 +55,24 @@ function tick(renderedNodes, renderedLinks) {
 }
 
 function renderGraph(targetElementSelector) {
+    injectStyles();
+
     const width = window.innerWidth;
     const height = window.innerHeight;
     const svg = createSvg(targetElementSelector, width, height);
     const { nodes, links } = adaptToD3GraphData([graph]);
-    console.log(JSON.stringify(nodes), JSON.stringify(links));
     const simulation = d3Force.forceSimulation(nodes);
 
     const renderedNodes = renderNodes(svg, nodes);
+    const renderedText = renderText(svg, nodes);
     const renderedLinks = renderLinks(svg, links);
 
     simulation.force('link', d3Force.forceLink(links));
     simulation.force('center', d3Force.forceCenter(width / 2, height / 2));
+    simulation.force('charge', d3Force.forceManyBody().strength(-500));
     simulation.force('x', d3Force.forceX(0));
     simulation.force('y', d3Force.forceY(0));
-    simulation.on('tick', () => tick(renderedNodes, renderedLinks));
+    simulation.on('tick', () => tick(renderedNodes, renderedText, renderedLinks));
 }
 
 module.exports = renderGraph;

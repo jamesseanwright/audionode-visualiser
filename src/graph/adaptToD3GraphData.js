@@ -19,8 +19,7 @@ function createLink(parentIndex, childIndex) {
 }
 
 function adaptToD3GraphData(nodes, graphData = initialData, parentIndex = 0) {
-    for (let i = 0; i < nodes.length; i++) {
-        const node = nodes[i];
+    for (let node of nodes) {
         const childIndex = graphData.nodes.length;
 
         graphData.nodes = graphData.nodes.concat(mapNode(node));
