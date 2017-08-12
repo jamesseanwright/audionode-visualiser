@@ -29,7 +29,7 @@ function renderText(svg, nodes) {
         .data(nodes)
         .enter()
         .append('text')
-        .text('foo');
+        .text(n => n.name);
 }
 
 function renderLinks(svg, links) {
@@ -45,8 +45,8 @@ function tick(renderedNodes, renderedText, renderedLinks) {
     renderedNodes.attr('cx', n => n.x)
         .attr('cy', n => n.y);
 
-    renderedText.attr('cx', n => n.x)
-        .attr('cy', n => n.y);
+    renderedText.attr('x', n => n.x)
+        .attr('y', n => n.y);
 
     renderedLinks.attr('x1', d => d.source.x);
     renderedLinks.attr('y1', d => d.source.y);
